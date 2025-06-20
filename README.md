@@ -1,1 +1,2 @@
-# Nh-m-14
+# Nhóm 14
+- Tích hợp Jira và Github
