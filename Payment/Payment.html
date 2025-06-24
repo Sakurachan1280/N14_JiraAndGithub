@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thanh toán</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Arial', sans-serif; background: #f4f7fa; color: #333; }
+    .container {
+      max-width: 480px;
+      margin: 40px auto;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+      overflow: hidden;
+    }
+    header {
+      background: #4e73df;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+    header h1 { font-size: 1.6rem; }
+    .content { padding: 20px; }
+    .order-info {
+      margin-bottom: 20px;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 12px;
+    }
+    .order-info .item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+    .payment-methods {
+      margin-bottom: 20px;
+    }
+    .payment-methods label {
+      display: block;
+      margin-bottom: 8px;
+      cursor: pointer;
+    }
+    .payment-methods input[type="radio"] {
+      margin-right: 8px;
+    }
+    .btn-pay {
+      display: block;
+      width: 100%;
+      padding: 14px;
+      background: #1cc88a;
+      color: #fff;
+      font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+    }
+    .btn-pay:hover {
+      background: #17a673;
+    }
+    /* QR Box */
+    .qr-box {
+      text-align: center;
+      margin-top: 20px;
+    }
+    .qr-box img {
+      width: 180px;
+      height: 180px;
+      border: 4px solid #eee;
+      border-radius: 12px;
+    }
+    .qr-box p {
+      margin-top: 12px;
+      font-size: 0.9rem;
+      color: #666;
+    }
+    @media (max-width: 500px) {
+      .container { margin: 20px; }
+      header h1 { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Thanh toán đơn hàng</h1>
+    </header>
+    <div class="content">
+      <div class="order-info">
+        <div class="item"><span>Sản phẩm:</span><span>Áo thun</span></div>
+        <div class="item"><span>Số lượng:</span><span>2</span></div>
+        <div class="item"><span>Tổng cộng:</span><span>450.000₫</span></div>
+      </div>
+      <div class="payment-methods">
+        <label><input type="radio" name="method" value="qr" checked> Thanh toán QR</label>
+        <label><input type="radio" name="method" value="card"> Thẻ tín dụng/ATM</label>
+      </div>
+      <a href="#" class="btn-pay" id="proceed">Tiến hành thanh toán</a>
+
+      <div class="qr-box" id="qrBox" style="display:none;">
+        <img src="https://via.placeholder.com/180x180.png?text=QR+Code" alt="Mã QR" />
+        <p>Quét mã QR để thanh toán</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const radios = document.querySelectorAll('input[name="method"]');
+    const qrBox = document.getElementById('qrBox');
+    const proceed = document.getElementById('proceed');
+
+    function updateUI() {
+      const selected = document.querySelector('input[name="method"]:checked').value;
+      if (selected === 'qr') {
+        proceed.textContent = 'Hiển thị QR';
+      } else {
+        proceed.textContent = 'Mở form nhập thẻ';
+      }
+      qrBox.style.display = 'none';
+    }
+
+    radios.forEach(r => r.addEventListener('change', updateUI));
+
+    proceed.addEventListener('click', (e) => {
+      e.preventDefault();
+      const selected = document.querySelector('input[name="method"]:checked').value;
+      if (selected === 'qr') {
+        qrBox.style.display = 'block';
+      } else {
+        alert('Chuyển sang form nhập thẻ (chưa triển khai)');
+      }
+    });
+
+    // Khởi tạo
+    updateUI();
+  </script>
+</body>
+</html>
